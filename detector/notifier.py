@@ -9,7 +9,7 @@ class SlackNotifier:
             os.environ.get("SLACK_WEBHOOK_URL")
             or config.get("slack", {}).get("webhook_url")
             or ""
-    )
+ )
 
     def send(self, title, fields):
         if not self.webhook_url:
