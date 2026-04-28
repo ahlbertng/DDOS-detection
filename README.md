@@ -18,7 +18,7 @@ A production-grade anomaly detection daemon that watches all incoming HTTP traff
 
 ## Blog Post
 
-> https://YOUR_BLOG_URL_HERE
+> https://ahlbert.hashnode.dev/how-i-built-a-real-time-ddos-detection-engine-from-scratch-no-fail2ban-allowed
 
 ---
 
