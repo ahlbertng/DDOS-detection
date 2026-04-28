@@ -6,13 +6,13 @@ from utils import now_iso
 class SlackNotifier:
     def __init__(self, config):
         self.webhook_url = (
-    os.environ.get("SLACK_WEBHOOK_URL")
-    or config.get("slack", {}).get("webhook_url")
-    or ""
-)
+            os.environ.get("SLACK_WEBHOOK_URL")
+            or config.get("slack", {}).get("webhook_url")
+            or ""
+    )
 
     def send(self, title, fields):
-        if not self.webhook_url in self.webhook_url:
+        if not self.webhook_url:
             return
 
         text_lines = [f"*{title}*"]
