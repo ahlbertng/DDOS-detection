@@ -1,0 +1,26 @@
+log_path: /var/log/nginx/hng-access.log
+audit_log: /app/audit.log
+
+slack_url: "${SLACK_URL}"
+
+dashboard:
+  host: "0.0.0.0"
+  port: 8080
+
+detection:
+  window_seconds: 60
+  baseline_window_seconds: 1800
+  recalculation_interval_seconds: 60
+  zscore_threshold: 3.0
+  multiplier_threshold: 5.0
+  error_multiplier_threshold: 3.0
+  min_baseline_samples: 120
+  mean_floor: 1.0
+  stddev_floor: 0.5
+
+ban:
+  durations_seconds:
+    - 600
+    - 1800
+    - 7200
+  permanent_after: 4
