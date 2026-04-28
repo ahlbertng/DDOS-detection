@@ -1,7 +1,8 @@
 log_path: /var/log/nginx/hng-access.log
 audit_log: /app/audit.log
 
-slack_url: "${SLACK_URL}"
+slack:
+  webhook_url: "${SLACK_WEBHOOK_URL}"
 
 dashboard:
   host: "0.0.0.0"

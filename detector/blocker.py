@@ -47,9 +47,6 @@ class Blocker:
                 duration_text = f"{duration}s"
                 expires_at = time.time() + duration
 
-            if not self._rule_exists(ip):
-                self._run(["iptables", "-I", "INPUT", "-s", ip, "-j", "DROP"])
-
             self.state.banned_ips[ip] = {
                 "condition": condition,
                 "rate": rate,
@@ -59,6 +56,9 @@ class Blocker:
                 "strike": strike,
                 "banned_at": time.time(),
             }
+        
+        if not self._rule_exists(ip):
+            self._run(["iptables", "-I", "INPUT", "-s", ip, "-j", "DROP"])
 
         audit(self.config, "BAN", ip, condition, rate, baseline, duration_text)
         self.notifier.ban_alert(ip, condition, rate, baseline, duration_text)

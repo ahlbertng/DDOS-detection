@@ -35,6 +35,10 @@ services:
       - HNG-nginx-logs:/var/log/nginx:ro
       - ./detector/config.yaml:/app/config.yaml:ro
       - ./detector/audit.log:/app/audit.log
+    env_file:
+      - .env
+    environment:
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
 
 volumes:
   HNG-nginx-logs:

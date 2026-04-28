@@ -1,7 +1,6 @@
 import threading
 import time
 import yaml
-from detector import state
 import uvicorn
 
 from state import SharedState
