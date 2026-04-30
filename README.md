@@ -1,6 +1,6 @@
 # HNG Stage 3 — DDoS Anomaly Detection Engine
 
-A production-grade anomaly detection daemon that watches all incoming HTTP traffic in real time, learns what normal looks like, and automatically responds when something deviates. Whether from a single aggressive IP or a global traffic spike.
+An anomaly detection daemon that watches all incoming HTTP traffic in real time, learns what normal looks like, and automatically responds when something deviates. Whether from a single aggressive IP or a global traffic spike.
 
 ---
 
