@@ -4,14 +4,6 @@ A production-grade anomaly detection daemon that watches all incoming HTTP traff
 
 ---
 
-## Live Deployment
-
-| Resource | URL |
-|----------|-----|
-| **Metrics Dashboard** | http://ahlbert.duckdns.org |
-| **Nextcloud (IP only)** | http://18.205.189.110|
-| **GitHub Repo** | https://github.com/ahlbertng/DDOS-detection |
-
 > Dashboard refreshes every 3 seconds. Nextcloud is accessible via raw IP only as per task requirements.
 
 ---
@@ -24,7 +16,7 @@ A production-grade anomaly detection daemon that watches all incoming HTTP traff
 
 ## Language Choice
 
-**Python** — chosen for its excellent standard library (`collections.deque`, `statistics`, `threading`), rapid iteration speed, and first-class support for the FastAPI dashboard. The daemon is fully concurrent using Python threads — one per subsystem — which is well-suited for I/O-bound log monitoring and background detection loops.
+**Python**  chosen for its excellent standard library (`collections.deque`, `statistics`, `threading`), rapid iteration speed, and first-class support for the FastAPI dashboard. The daemon is fully concurrent using Python threads, one per subsystem which is well-suited for I/O-bound log monitoring and background detection loops.
 
 ---
 
@@ -50,11 +42,11 @@ See `docs/architecture.png` for the full diagram.
 
 ## How the Sliding Window Works
 
-Two `deque`-based windows track request rates over the last **60 seconds**:
+Two `deque` based windows track request rates over the last **60 seconds**:
 
-- `global_window` — one timestamp per request across all IPs
-- `ip_windows[ip]` — one timestamp per request per source IP
-- `ip_error_windows[ip]` — one timestamp per 4xx/5xx response per IP
+- `global_window`  one timestamp per request across all IPs
+- `ip_windows[ip]`  one timestamp per request per source IP
+- `ip_error_windows[ip]`  one timestamp per 4xx/5xx response per IP
 
 **Eviction logic** runs on every log line processed:
 
@@ -73,7 +65,7 @@ for ip, dq in ip_windows.items():
         del ip_windows[ip]  # clean up idle IPs
 ```
 
-Because deques are ordered by time (oldest on the left), eviction is O(1) per expired entry — no sorting, no scanning. The length of the deque at any moment equals the request count in the last 60 seconds.
+Because deques are ordered by time (oldest on the left), eviction is O(1) per expired entry, no sorting, no scanning. The length of the deque at any moment equals the request count in the last 60 seconds.
 
 ---
 
@@ -85,11 +77,11 @@ The `BaselineEngine` computes a rolling baseline from a **30-minute window** of 
 
 **Recalculation interval:** 60 seconds (`recalculation_interval_seconds: 60`)
 
-**Per-hour slots:** Each second's count is also stored in `hourly_slots[HH]` — a deque keyed by the current UTC hour. When the current hour has accumulated at least `min_baseline_samples` (120) data points, the detector prefers the current hour's data over the global 30-minute window. This makes the baseline adapt to time-of-day traffic patterns.
+**Per-hour slots:** Each second's count is also stored in `hourly_slots[HH]`  a deque keyed by the current UTC hour. When the current hour has accumulated at least `min_baseline_samples` (120) data points, the detector prefers the current hour's data over the global 30-minute window. This makes the baseline adapt to time-of-day traffic patterns.
 
 **Floor values** prevent false positives during cold start or extremely quiet periods:
-- `mean_floor: 1.0` — effective mean never drops below 1.0 req/s
-- `stddev_floor: 0.5` — effective stddev never drops below 0.5
+- `mean_floor: 1.0`  effective mean never drops below 1.0 req/s
+- `stddev_floor: 0.5`  effective stddev never drops below 0.5
 
 **Recalculation logic:**
 ```python
