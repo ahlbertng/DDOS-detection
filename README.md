@@ -10,8 +10,7 @@ An anomaly detection daemon that watches all incoming HTTP traffic in real time,
 
 ## Blog Post
 
-> https://ahlbert.hashnode.dev/how-i-built-a-real-time-ddos-detection-engine-from-scratch-no-fail2ban-allowed
-
+> https://ahlbert.hashnode.dev/how-i-built-a-detection-engine-from-scratch-no-fail2ban-allowed
 ---
 
 ## Language Choice
